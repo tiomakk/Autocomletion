@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DataProviders;
 using AutoCompletion;
 
-namespace SearchConsoleApp
+namespace ConsoleApp
 {
     class Program
     {
@@ -24,6 +24,7 @@ namespace SearchConsoleApp
                     sbInputString.Clear();
                     continue;
                 }
+                
                 sbInputString.Append(inputSymbol);
                 Console.WriteLine(sbInputString.ToString());
                 Console.WriteLine(String.Join("\n", autocomletion.Complete(sbInputString.ToString())));
