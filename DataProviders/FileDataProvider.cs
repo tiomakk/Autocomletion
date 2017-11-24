@@ -32,7 +32,7 @@ namespace DataProviders
             using (var streamReader = new StreamReader(PathToFile))
             {
                 if (!Int32.TryParse(streamReader.ReadLine(), out int length) || length < 0)
-                    throw new Exception("Wrong file data");
+                    throw new Exception("Wrong number of lines at the beginning of the file");
 
                 for(int i = 0; i < length; i++)
                 {
@@ -43,7 +43,17 @@ namespace DataProviders
                         if ((Int32.TryParse(splitedString[1], out int wordFrequency)) && wordFrequency > 0)
                             dictionary.Add(splitedString[0], wordFrequency);
                     else
-                        throw new Exception("Wrong file data");                  
+                        throw new Exception("Wrong file data"); 
+                                        
+                }
+                streamReader.ReadLine();
+                while (!streamReader.EndOfStream)
+                {
+                    string word = streamReader.ReadLine();
+                    if (dictionary.ContainsKey(word))
+                        dictionary[word]++;
+                    else
+                        dictionary.Add(word, 1);
                 }
             }
             return dictionary;
